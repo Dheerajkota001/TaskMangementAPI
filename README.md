@@ -15,63 +15,61 @@ PreRequisites
           
    Notes:
    
-      @Controller
-     public class EmployeeController 
-   
-      GET :
-      	@RequestMapping(value = "/org/dept/{deptNo}/employee", method = RequestMethod.GET, produces = {
-      			MediaType.APPLICATION_JSON_VALUE })
-    
-     POST :
-      	//@PostMapping("org/dept/{deptNo}/employee")
-    @RequestMapping(value="/org/dept/{deptNo}/employee", method=RequestMethod.POST, produces= {
-        MediaType.APPLICATION_JSON_VALUE
-    })
-      
-     PUT :
+  DB Design :
+
+CREATE TABLE IF NOT EXISTS Task
+(
+Task_Id char(50),
+Description char(100),
+Created_By char(50),
+Created_Time datetime,
+Due_Date datetime,
+Reminder_Time int,
+Reminder_Type char(100),
+Place char(50),
+RecurrenceType  char(50),
+Task_Status char(50),
+Action_Type char(50),
+);
+
+
+API Design :
+Rest APIs:  CRUD      
+   Retrieve -> GET  
+   Create -> POST
+   Update -> PUT
+   Delete -> Delete
+
+ 
+Notification Job Design:
+
+Create Job :
+
+   Due Date:
+     Query
+       Current Time > "2021-10-05 13:11:35.422" -> 20 Tasks
        
-        	
-	@RequestMapping(value = "", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Void> updateEmployee(@PathVariable Long deptNo, @PathVariable Long empNo,
-  
-  
-  JDK 1.8 . Lamda Expressions and Streams
-  
-         List<EmployeeDto> employeeDtos = employees.stream().map(p -> new EmployeeDto(p)).collect(Collectors.toList());
-  
-  
-  Docker :
-  
-    Building Image :
-        
-	 Docker build -t somisettyv/springjpa .
-	 
-    Check Image    :
-        
-	 Docker Images 
-	 
-    Get the Container List 
-       
-         Docker ps -a
-	 
-    Run Docker Container :
-       
-         Docker run -p 8080:8080 somisettyv/springjpa
-	 
-	 
-    Push to Docker hub: 
-    
-          docker login --username=somisettyv --email=somisettyv@yahoo.com
+     Make 20 calls
+      https://api.kaleyra.io/v1/%s/voice/outbound?to=%s&bridge=%s&api-key=%s&target=[{"message":{"text":"%s"}}]
 
-          docker tag memberservice somisettyv/springjpa
+Different Layers:
+API Layer
+Service Layer
+DAO Layer
+Connectors Layer
 
-          docker push somisettyv/springjpa
+Technical Stack:
 
-          docker rmi -f memberservice
-	  
-	  Get the Image and Run
-
-             docker run -p 8889:8080 somisettyv/springjpa
+Java 8
+Gradle - Build Tool
+SprintBoot - API
+Embedded   - Tomcat
+Rest - Spring
+JPA  -
+Making external API call -> Okhttp Framework
+DBConnection Pool
+  
+  
 	 
 	 
 	 
