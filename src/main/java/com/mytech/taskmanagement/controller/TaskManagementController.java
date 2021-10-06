@@ -26,25 +26,25 @@ public class TaskManagementController {
 	TaskManagementService taskManagementService;
 
 	@GetMapping(value = "/mytech/task")
-	public ResponseEntity<List<TaskResponseDto>> getAllEmployees(@RequestParam(value = "zone", required = false) String zone) {
+	public ResponseEntity<List<TaskResponseDto>> getAllTasks(@RequestParam(value = "zone", required = false) String zone) {
 		List<TaskResponseDto> taskResponseDtoList = taskManagementService.getAllTasks(zone);
 		return new ResponseEntity<>(taskResponseDtoList, HttpStatus.OK);
 	}
 
 	@PostMapping("/mytech/task")
-	public ResponseEntity<Void> addEmployee(@RequestBody @NotNull TaskRequestDto taskResponseDto) throws IOException {
+	public ResponseEntity<Void> addTask(@RequestBody @NotNull TaskRequestDto taskResponseDto) throws IOException {
 		taskManagementService.saveTask(taskResponseDto);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/mytech/task/{taskId}")
-	public ResponseEntity<Void> updateEmployee(@PathVariable Long taskId, @RequestBody @NotNull TaskRequestDto taskResponseDto) {
+	public ResponseEntity<Void> updateTask(@PathVariable Long taskId, @RequestBody @NotNull TaskRequestDto taskResponseDto) {
 		taskManagementService.updateTask(taskId, taskResponseDto);
 		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/mytech/task/{taskId}")
-	public ResponseEntity<Void> deleteEmployee(@PathVariable Long taskId) {
+	public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
 		taskManagementService.deleteTask(taskId);
 		return ResponseEntity.noContent().build();
 	}
